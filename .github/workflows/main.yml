@@ -34,13 +34,17 @@ jobs:
     - name: Change IMAGE TAG
       run: |
         sed -e "s/IMAGE_TAG/$IMAGE_TAG/g" Dockerrun-base.aws.json > Dockerrun.aws.json
-    - name: Use EB CLI
-      uses: hmanzur/actions-aws-eb@v1.0.0
-      env:
-        AWS_DEFAULT_REGION: "ap-northeast-2"
-
+     
+    - name: Use EB CLI Install
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip awsebcli
     - name: Deploy EB
       run: |
+        git init -r ap-northeast-2 --quiet
         git add .
         eb use Multicontainer-env-1
         eb deploy --stage
