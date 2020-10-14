@@ -6,10 +6,6 @@ on:
 name: Deploy to Elastic Beanstalk(Multi-container)
 
 jobs:
-  env:
-    ECR_REGISTRY: hello
-    ECR_REPOSITROY: mono
-    IMAGE_TAG: latest
   build:
     runs-on: ubuntu-latest
     steps:
@@ -35,11 +31,8 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-    - name: Change IMAGE TAG
-      run: |
         sed -e "s/IMAGE_TAG/$IMAGE_TAG/g" Dockerrun-base.aws.json > Dockerrun.aws.json
-     
-    - name: Use EB CLI Install
+    - name: Python set up
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
