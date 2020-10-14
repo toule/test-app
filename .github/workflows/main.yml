@@ -41,7 +41,6 @@ jobs:
 
     - name: Deploy EB
       run: |
-#        eb init -r ap-northeast-2 --quiet
         git add .
         eb use Multicontainer-env-1
         eb deploy --stage
