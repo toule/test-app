@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: Push To ECR
+name: Deploy to Elastic Beanstalk(Multi-container)
 
 jobs:
   build:
@@ -36,10 +36,12 @@ jobs:
         sed -e "s/IMAGE_TAG/$IMAGE_TAG/g" Dockerrun-base.aws.json > Dockerrun.aws.json
     - name: Use EB CLI
       uses: hmanzur/actions-aws-eb@v1.0.0
+      env:
+        AWS_DEFAULT_REGION: "ap-northeast-2"
 
     - name: Deploy EB
       run: |
-        eb init -r ap-northeast-2 --quiet
+#        eb init -r ap-northeast-2 --quiet
         git add .
         eb use Multicontainer-env-1
         eb deploy --stage
