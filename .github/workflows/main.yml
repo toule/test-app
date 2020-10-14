@@ -34,8 +34,10 @@ jobs:
     - name: Change IMAGE TAG
       run: |
         sed -e "s/IMAGE_TAG/$IMAGE_TAG/g" Dockerrun-base.aws.json > Dockerrun.aws.json
-    - name: Fill in the new Image ID to ECS
+    - name: Use EB CLI
       uses: hmanzur/actions-aws-eb@v1.0.0
+
+    - name: Deploy EB
       run: |
         git add .
         eb use Multicontainer-env-1
