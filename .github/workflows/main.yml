@@ -6,6 +6,10 @@ on:
 name: Deploy to Elastic Beanstalk(Multi-container)
 
 jobs:
+  env:
+    ECR_REGISTRY: hello
+    ECR_REPOSITROY: mono
+    IMAGE_TAG: latest
   build:
     runs-on: ubuntu-latest
     steps:
