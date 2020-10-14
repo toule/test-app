@@ -44,7 +44,8 @@ jobs:
         pip install --upgrade pip awsebcli
     - name: Deploy EB
       run: |
-        eb init -r ap-northeast-2
+        git init
+        eb init
         git add .
         eb use Multicontainer-env-1
         eb deploy --stage
