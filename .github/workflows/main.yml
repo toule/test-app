@@ -26,7 +26,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: mono
+       ECR_REPOSITORY: mono
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -45,7 +45,7 @@ jobs:
     - name: Deploy EB
       run: |
         git init
-        eb init Multicontainer-env-1
+        eb init Multicontainer-env-1 -r ap-northeast-2
         git add .
         eb use Multicontainer-env-1
         eb deploy --stage
