@@ -6,6 +6,7 @@ on:
 name: Push To ECR
 
 jobs:
+  runs-on: ubuntu-latest
   build:
     steps:
     - name: Configure AWS credentials
