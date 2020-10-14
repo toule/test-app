@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -28,6 +29,14 @@ jobs:
         ECR_REPOSITORY: mono
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        ls -al
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    - name: Change IMAGE TAG
+      run: |
+        sed -e "s/IMAGE_TAG/$IMAGE_TAG/g" Dockerrun-base.aws.json > Dockerrun.aws.json
+    - name: Fill in the new Image ID to ECS
+      uses: hmanzur/actions-aws-eb@v1.0.0
+      run: |
+        git add .
+        eb use Multicontainer-env-1
+        eb deploy --stage
