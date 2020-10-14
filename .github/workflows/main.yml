@@ -48,4 +48,5 @@ jobs:
         eb init Multicontainer -r ap-northeast-2 --platform Docker
         git add .
         eb use Multicontainer-env-1
+        cat Dockerrun.aws.json
         eb deploy --stage
