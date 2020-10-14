@@ -45,6 +45,7 @@ jobs:
     - name: Deploy EB
       run: |
         git init
-        printf '\n' | eb init Multicontainer-env-1 -r ap-northeast-2
+        eb init Multicontainer -r ap-northeast-2 --platform Docker
         git add .
+        eb use Multicontainer-env-1
         eb deploy --stage
