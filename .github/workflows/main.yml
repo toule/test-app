@@ -44,5 +44,5 @@ jobs:
         git init
         eb init Multicontainer -r ap-northeast-2 --platform Docker
         git add .
-        eb use Multicontainer-env-1
+        eb use Multicontainer-env
         eb deploy --stage
